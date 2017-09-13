@@ -33,8 +33,7 @@ The CNN goes beyond pattern recognition. It learns the entire processing pipelin
 ![NVidia CNN Architecture](CNN_Architecture.jpg)
 The primary motivation for this CNN architecture is to avoid the need to recognize specific human-designated features, such as lane markings, guard rails, or other cars, and to avoid having to create a collection of “if, then, else” rules, based on observation of these features. 
 
-I then enhanced this CNN architecture by making use of the Parametric Rectified Linear Unit instead of the Rectified Linear Unit.
-<img src="SelfDrivingCNNArchitecture.jpg" width="1000" height="500" />
+<img src="SelfDrivingCNNArchitecture.jpg" width="1000" height="400" />
 The image normalization was done using a Keras Lambda function, with three 5x5 convolution layers, two 3x3 convolution layers, and three fully-connected layers - and as described in the paper text - including converting from RGB to YUV color space, and 2x2 striding on the 5x5 convolutional layers. The paper does not mention any sort of Non Linearity function or means of mitigating overfitting.The intiution of using ELU on each fully-connected layer is as result of the improved performance derived from ELU. I then tried regularization to prevent overfitting by using dropout (with a keep probability of 0.5) between the two sets of convolution layers and after the first fully-connected layer. The Adam optimizer was chosen with default parameters and the chosen loss function was mean squared error (MSE). The final layer (depicted as "**Output Vehicle Control**" in the diagram) is a fully-connected layer with a single neuron.
 
 ### Regularization
