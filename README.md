@@ -30,10 +30,13 @@ Images produced by the simulator in training mode are 320x160, and therefore req
 ## 2. Model Architecture
 I adopted my Convolutional Neural Network Architecture (CNN) from the End to End Learning for Self-Driving Cars paper and work done by Nvidia.[End to End Learning for Self-Driving Cars](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
 The CNN goes beyond pattern recognition. It learns the entire processing pipeline needed to steer an automobile. The groundwork for this project was done over 10 years ago in a Defense Advanced Research Projects Agency (DARPA) seedling project known as DARPA Autonomous Vehicle (DAVE) [5] in which a sub-scale radio control (RC) car drove through a junk filled alley way. DAVE was trained on hours of human driving in similar, but not identical environments. The training data included video from three cameras coupled with left and right steering commands from a human operator. 
+
 ![NVidia CNN Architecture](CNN_Architecture.jpg)
+
 The primary motivation for this CNN architecture is to avoid the need to recognize specific human-designated features, such as lane markings, guard rails, or other cars, and to avoid having to create a collection of “if, then, else” rules, based on observation of these features. 
 
 <img src="SelfDrivingCNNArchitecture.jpg" width="1000" height="400" />
+
 The image normalization was done using a Keras Lambda function, with three 5x5 convolution layers, two 3x3 convolution layers, and three fully-connected layers - and as described in the paper text - including converting from RGB to YUV color space, and 2x2 striding on the 5x5 convolutional layers. The paper does not mention any sort of Non Linearity function or means of mitigating overfitting.The intiution of using ELU on each fully-connected layer is as result of the improved performance derived from ELU. I then tried regularization to prevent overfitting by using dropout (with a keep probability of 0.5) between the two sets of convolution layers and after the first fully-connected layer. The Adam optimizer was chosen with default parameters and the chosen loss function was mean squared error (MSE). The final layer (depicted as "**Output Vehicle Control**" in the diagram) is a fully-connected layer with a single neuron.
 
 ### Regularization
